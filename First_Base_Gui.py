@@ -24,17 +24,17 @@ class My_Gui(Tk):
         self.statusbar.pack(side=BOTTOM, fill=X)
 
     def add_menubar(self):
-        self.mainmenubar = Menu(self, tearoff=0)
-        self.config(menu=self.mainmenubar)
-        return self.mainmenubar
+        self.mainmenu = Menu(self, tearoff=0)
+        self.config(menu=self.mainmenu)
+        return self.mainmenu
 
     def myfunc(self):
         print("menudone")
 
     def add_main_menu_options(self, menu_name):
-        self.menu_created = Menu(self.mainmenubar)
-        self.mainmenubar.add_cascade(label=menu_name, menu=self.menu_created)
-        return self.menu_created
+        self.sub_menu = Menu(self.mainmenu, tearoff=0)
+        # self.mainmenu.add_cascade(label=menu_name, menu=self.sub_menu)
+        return self.sub_menu
 
     def add_label(self,fg_color,bg_color,  text_for_label, anchor_side):
         my_label = Label(self, fg=fg_color, text=text_for_label, bg=bg_color)
@@ -89,29 +89,73 @@ class My_Gui(Tk):
 
         Button(text="Know about language you selected!", command=get_language, pady=2).pack(anchor="w")
 
+    def create_file_menu_for_drop_down(self):
+        self.sub_menu = self.add_main_menu_options("File")
+        self.sub_menu.add_command(label="New Project")
+        self.sub_menu.add_command(label="Save")
+        self.sub_menu.add_command(label="Delete")
+        self.sub_menu.add_separator()
+        self.sub_menu.add_command(label="Open file")
+        self.sub_menu.add_command(label="Close file")#, command=myfuncformenu)
+        self.config(menu=self.mainmenu)
+        self.mainmenu.add_cascade(label="File", menu=self.sub_menu)
 
+    def create_edit_menu_for_drop_down(self):
+        self.sub_menu = self.add_main_menu_options("File")
+        self.sub_menu.add_command(label="Cut")
+        self.sub_menu.add_command(label="Copy")
+        self.sub_menu.add_command(label="Paste")
+        self.sub_menu.add_separator()
+        self.sub_menu.add_command(label="Redo")
+        self.sub_menu.add_command(label="Close file")#, command=myfuncformenu)
+        self.config(menu=self.mainmenu)
+        self.mainmenu.add_cascade(label="Edit", menu=self.sub_menu)
 
+    def create_help_menu_for_drop_down(self):
+        self.sub_menu = self.add_main_menu_options("Help")
+        self.sub_menu.add_command(label="Submit Feedback", command=self.myfuncforhelpmenu)
+        self.sub_menu.add_command(label="Help", command=self.my_retry_pop_up)
+        self.sub_menu.add_separator()
+        self.sub_menu.add_command(label="Tip of the day", command=self.help_msg)
+        self.config(menu=self.mainmenu)
+        self.mainmenu.add_cascade(label="Help", menu=self.sub_menu)
 
+    def myfuncforhelpmenu(self):
+        value = tmsg.askquestion("Experience feedback",
+                                 "Was your experience using this GUI good?")  # exp 1st value will be label of popup
+        if value == "yes":
+            msg = "Great!!"
+        else:
+            msg = "Let us know how we can improve."
+        tmsg.showinfo("Experience", msg)
 
+    # todo: retry msg
 
+    def my_retry_pop_up(self):
+        value = tmsg.askretrycancel("Do you have any questions?", "We cant help you with this request")
+        if value:  # means true
+            msg = "Sorry, try again!"
+        else:
+            msg = "Thanks!!"
+        tmsg.showinfo("Help", msg)
 
-
-
+    def help_msg(self):
+        tmsg.showinfo("Tip", "Keep learning to be successful")
 
 
 if __name__ == "__main__":
   window = My_Gui("My First Gui", "./icon1.ico")
   window.add_statusBar()
   window.add_menubar()
-  window.add_main_menu_options("File")
-  window.add_main_menu_options("Edit")
-  window.add_main_menu_options("View")
   window.add_label("red","white", "Click Below button for facts!", "n")
   window.add_button("red","Click Me!")
   window.add_enter_box()
   window.add_text_box_with_scroll_bar()
   # window.insert_text_in_text_box("Welcome to first GUI by Priya!")
   window.add_radio_button()
+  window.create_file_menu_for_drop_down()
+  window.create_edit_menu_for_drop_down()
+  window.create_help_menu_for_drop_down()
 
 
   window.mainloop()
