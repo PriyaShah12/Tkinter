@@ -1,4 +1,5 @@
 from tkinter import *
+import tkinter as tk
 import tkinter.messagebox as tmsg
 from all_functions import Jsondata_Class_Page
 
@@ -36,7 +37,8 @@ class My_Gui(Tk):
         return self.menu_created
 
     def add_label(self,fg_color,bg_color,  text_for_label, anchor_side):
-        l = Label(self, fg=fg_color, text=text_for_label, bg=bg_color).pack(anchor=anchor_side)
+        my_label = Label(self, fg=fg_color, text=text_for_label, bg=bg_color)
+        my_label.pack(anchor=anchor_side)
 
     def add_button(self,fg_color, text_for_button ):
         my_button = Button(self, fg=fg_color, text=text_for_button)
@@ -57,6 +59,42 @@ class My_Gui(Tk):
             self.scvalue.set(text)
             self.screen.update()
 
+    def add_text_box_with_scroll_bar(self):
+        text = Text(self, font= "lucida 17", foreground="black", background="orange", width=30, height=10) #, height=8, width=40)
+        scroll = Scrollbar(self)
+        text.configure(yscrollcommand=scroll.set)
+        text.pack(side=LEFT)
+        scroll.config(command=text.yview)
+        scroll.pack(side=RIGHT, fill=Y)
+
+    def insert_text_in_text_box(self, insert_text):
+        text = Text(self)
+        text.insert(END, insert_text)
+        text.pack()
+
+
+    def add_radio_button(self):
+        var = StringVar()
+        var.set("Radio")  # will uncheck all radio button
+        Label(self, text="Which is your favourite language?", pady=15, font="lucida 9 bold", justify=LEFT).pack(
+            anchor="w")
+
+        radio = Radiobutton(self, text="Python", padx=3, variable=var, value="Python").pack(anchor="w")
+        radio = Radiobutton(self, text="Java", padx=3, variable=var, value="Java").pack(anchor="w")
+        radio = Radiobutton(self, text=".NET", padx=3, variable=var, value=".NET").pack(anchor="w")
+        radio = Radiobutton(self, text="C++", padx=3, variable=var, value="C++").pack(anchor="w")
+
+        def get_language():
+            tmsg.showinfo("Language", f"The Language you selected {var.get()},is very easy language")
+
+        Button(text="Know about language you selected!", command=get_language, pady=2).pack(anchor="w")
+
+
+
+
+
+
+
 
 
 
@@ -71,6 +109,10 @@ if __name__ == "__main__":
   window.add_label("red","white", "Click Below button for facts!", "n")
   window.add_button("red","Click Me!")
   window.add_enter_box()
+  window.add_text_box_with_scroll_bar()
+  # window.insert_text_in_text_box("Welcome to first GUI by Priya!")
+  window.add_radio_button()
+
 
   window.mainloop()
 
