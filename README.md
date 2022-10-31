@@ -18,6 +18,7 @@ This GUI has following functionalities:-->
 2. The main function of this GUI is to give a fact everytime you click on clickme button.
 3. There are radio buttons, entry widget, label and a text box with slider, multiple header with some pop up messages when help option is used.
 4. There is a button attached to slider, that is, when selected age and click on button below it, it gives a pop up message. 
+5. There is all_functions.py file which gets the url from constant.py and gets the JSON response from it. Response is then parsed to python dictionary and text is    shown on GUI. 
 
 
 
