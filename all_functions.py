@@ -1,6 +1,7 @@
 import requests
 import json
 import tkinter.messagebox as tmsg
+from constants import get_data
 
 class Jsondata_Class_Page:
     @classmethod
@@ -24,8 +25,8 @@ class Jsondata_Class_Page:
         return (python_dictionary)
 
     @classmethod
-    def get_fact_text(cls):
-        resp_text = Jsondata_Class_Page.get("https://uselessfacts.jsph.pl/random.json?language=en")
+    def get_facts_text(cls):
+        resp_text = Jsondata_Class_Page.get(get_data.url)
         python_dict = Jsondata_Class_Page.convert_json_string_to_python_dictionary(resp_text)
         print("******", python_dict["text"])
         # message = python_dict["text"]

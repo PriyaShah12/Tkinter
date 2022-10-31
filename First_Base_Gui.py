@@ -7,7 +7,6 @@ from all_functions import Jsondata_Class_Page
 class My_Gui(Tk):
 
     def __init__(self, title_of_page, icon_for_page):
-
         self.button=""
 
         super().__init__()
@@ -53,17 +52,19 @@ class My_Gui(Tk):
 
     def clickme(self, event):
         global scvalue
-        text = Jsondata_Class_Page.get_fact_text()
+        text = Jsondata_Class_Page.get_facts_text()
         print("*******************", text, "**********************")
         if text != "":
             self.scvalue.set(text)
             self.screen.update()
 
-    def add_text_box_with_scroll_bar(self):
+    def add_text_box_with_scroll_bar(self, insert_text):
         text = Text(self, font= "lucida 17", foreground="black", background="orange", width=30, height=10) #, height=8, width=40)
         scroll = Scrollbar(self)
         text.configure(yscrollcommand=scroll.set)
         text.pack(side=LEFT)
+        text.insert(END, insert_text)
+        text.pack()
         scroll.config(command=text.yview)
         scroll.pack(side=RIGHT, fill=Y)
 
@@ -140,6 +141,21 @@ class My_Gui(Tk):
     def help_msg(self):
         tmsg.showinfo("Tip", "Keep learning to be successful")
 
+    def add_slider(self):
+        my_slider = Scale(self, from_=0, to=100, orient=HORIZONTAL)  # tickinterval=5 gives interval of 5
+        my_slider.set(5)  # will start from 5
+        my_slider.pack(anchor="e")
+
+        def get_age_fact():
+            tmsg.showinfo("Age facts", f"You look beautiful at age {my_slider.get()}")
+
+        Button(self, text="Know about your age!!", pady=10, command=get_age_fact).pack(anchor="e")
+
+    def add_label_to_slider(self):
+        self.add_label("black", "orange", "Select your age", "e")
+        self.add_slider()
+
+
 if __name__ == "__main__":
   window = My_Gui("My First Gui", "./icon1.ico")
   window.add_statusBar()
@@ -147,12 +163,12 @@ if __name__ == "__main__":
   window.add_label("red","white", "Click Below button for facts!", "n")
   window.add_button("red","Click Me!")
   window.add_enter_box()
-  window.add_text_box_with_scroll_bar()
-  # window.insert_text_in_text_box("Welcome to first GUI by Priya!")
+  window.add_text_box_with_scroll_bar("Welcome to first GUI by Priya!!")
   window.add_radio_button()
   window.create_file_menu_for_drop_down()
   window.create_edit_menu_for_drop_down()
   window.create_help_menu_for_drop_down()
+  window.add_label_to_slider()
 
 
   window.mainloop()
