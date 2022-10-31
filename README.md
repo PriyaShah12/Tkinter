@@ -1,12 +1,12 @@
 Python-GUI-Project
 
-Description
+Description-->
 The GUI project is built using Python and Tkinter.
 
-Library Used
+Library Used-->
 import tkinter
 
-How to run
+How to run-->
 Running the script is really simple! Just open a terminal in the folder where your script is located and run the following command:
 1. pip install -r requirement.txt
 2. python -m pip install pyinstaller
