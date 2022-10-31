@@ -10,7 +10,7 @@ How to run-->
 Running the script is really simple! Just open a terminal in the folder where your script is located and run the following command:
 1. pip install -r requirement.txt
 2. python -m pip install pyinstaller
-3. pyinstaller filename.py
+3. pyinstaller filename.py --onefile
 
 This GUI has following functionalities:-->
 
